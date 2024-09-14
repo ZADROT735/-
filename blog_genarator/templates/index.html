@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Генератор статей блога</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Генератор статей блога</h1>
+
+    <h2>Создать профиль автора</h2>
+    <form method="POST" action="/create_profile">
+        <input type="text" name="name" placeholder="Имя автора" required>
+        <textarea name="bio" placeholder="Описание/биография"></textarea>
+        <input type="text" name="vocabulary" placeholder="Словарный запас">
+        <input type="text" name="theme" placeholder="Тематика">
+        <select name="tone">
+            <option value="формальный">Формальный</option>
+            <option value="неформальный">Неформальный</option>
+        </select>
+        <button type="submit">Создать профиль</button>
+    </form>
+
+    <h2>Сгенерировать статью</h2>
+    <form method="POST" action="/generate_article">
+        <select name="profile">
+            {% for profile in profiles %}
+                <option value="{{ profile.name }}">{{ profile.name }}</option>
+            {% endfor %}
+        </select>
+        <input type="text" name="theme" placeholder="Тематика" required>
+        <input type="number" name="length" placeholder="Длина (токены)" required>
+        <button type="submit">Сгенерировать статью</button>
+    </form>
+</body>
+</html>
